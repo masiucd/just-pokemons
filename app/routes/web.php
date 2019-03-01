@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('/resource', 'ResourceController');
+Route::resource('/poll', 'PollController');
+
 Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
