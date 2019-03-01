@@ -83,7 +83,8 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Welcome Master
+                    <h1>Welcome Master</h1>
+                    {{-- <a href="{{ url('/resource') }}" class="btn btn-lg btn-warning">To the poll app</a> --}}
                 </div>
                 @include('layouts.jumbo')
             </div>
