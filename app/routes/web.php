@@ -25,5 +25,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/poll/create', 'PollController@create')->name('create');
 Route::post('/poll/store', 'PollController@store')->name('store');
+Route::get('/poll/index', 'PollController@index')->name('index');
 
 

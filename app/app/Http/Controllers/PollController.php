@@ -19,7 +19,9 @@ class PollController extends Controller
      */
     public function index()
     {
-        //
+        $poll = Poll::where('user_id', Auth::id());
+        $list = view('poll.index',compact('poll'));
+        return $list;
     }
 
     /**
@@ -69,6 +71,8 @@ class PollController extends Controller
             $option->votes = 0;
             $option->save();
         }
+
+        return redirect(action('PollController@index'));
     }
 
     /**
