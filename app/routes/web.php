@@ -22,3 +22,8 @@ Auth::routes();
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/poll/create', 'PollController@create')->name('create');
+Route::post('/poll/store', 'PollController@store')->name('store');
+
+
