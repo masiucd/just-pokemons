@@ -9,6 +9,15 @@
         <li class="nav-item active">
           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="{{route('login')}} ">Login</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{route('register')}} ">Register</a>
+        </li>
       </ul>
     </div>
   </nav>
+
+

@@ -37,7 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Poll()
+    public function polls()
     {
         return $this->hasMany(Poll::class);
     }
