@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <h4>You are logged in!</h4>
+                    <a href="{{url('resource')}}" class="btn btn-lg btn-info">To the Poll app</a>
                 </div>
             </div>
         </div>

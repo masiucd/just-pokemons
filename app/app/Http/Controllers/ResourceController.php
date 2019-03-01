@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Poll;
+
+
 
 class ResourceController extends Controller
 {
@@ -18,7 +22,8 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -50,7 +55,8 @@ class ResourceController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('user.show', compact('user'));
     }
 
     /**
@@ -61,7 +67,8 @@ class ResourceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -73,7 +80,11 @@ class ResourceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user = $user->update($request->all());
+
+        return redirect(action('ResourceController@index'));
     }
 
     /**
@@ -84,6 +95,10 @@ class ResourceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect(action('ResourceController@index'));
     }
 }
