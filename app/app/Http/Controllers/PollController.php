@@ -66,6 +66,7 @@ class PollController extends Controller
             $option = new Option;
             $option->description = $o;
             $option->poll_id = $poll->id;
+            $option->votes = 0;
             $option->save();
         }
     }
@@ -78,7 +79,7 @@ class PollController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
