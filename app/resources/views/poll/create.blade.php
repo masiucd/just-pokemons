@@ -1,6 +1,10 @@
 @extends('layouts.layout')
 
+@section('title', 'Create a Poll')
+@include('layouts.navigation')
 @section('content')
+
+
 
 <form method="post" action="{{action('PollController@store')}}">
     @csrf

@@ -12,7 +12,7 @@
 
         @foreach ($users as $user)
             <h3> {{$user->name}} </h3>
-         @endforeach
+        @endforeach
             <a href="{{url('/poll/create')}} " class="btn btn-info my-4 ">Vote</a>
 
     </div>

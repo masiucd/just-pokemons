@@ -1,5 +1,7 @@
 @extends('layouts.layout')
+@section('title', 'Detail of a Poll')
 
+@include('layouts.navigation')
 @section('content')
 
 

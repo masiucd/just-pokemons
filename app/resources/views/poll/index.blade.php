@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@section('title', 'List of Your Polls')
+
+@include('layouts.navigation')
+
 @section('content')
 
 <table class="table">

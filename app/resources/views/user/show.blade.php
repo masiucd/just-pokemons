@@ -16,6 +16,7 @@
 
             <div class="jumbotron">
                 <h1 class="display-3">{{$user->name }}' options</h1>
+                <h2>{{$poll->title}}</h2>
             @foreach ($poll->options as $options)
                     <p class="lead">{{$options->description}}</p>
                     <hr class="my-4">
@@ -23,7 +24,7 @@
                     <p class="lead">
                         @endforeach
 
-                        @if ($poll->id != 0)
+                        @if ($poll->id )
                         <a class="btn btn-primary btn-lg" href="{{action('ResourceController@show',$poll->id -1)}}" role="button">back</a>
                         <a class="btn btn-primary btn-lg" href="{{action('ResourceController@show',$poll->id +1)}}" role="button">next</a>
                         @endif

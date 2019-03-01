@@ -61,7 +61,7 @@ class ResourceController extends Controller
     {
         $poll = Poll::find($id);
         // $options = Option::all();
-        $user = User::findOrFail($id);
+        $user = \Auth::user();
         return view('user.show', compact(['poll','user']));
     }
 

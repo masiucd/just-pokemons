@@ -9,12 +9,19 @@
         <li class="nav-item active">
           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
-
+        @if(!Auth::id())
         <li class="nav-item active">
             <a class="nav-link" href="{{route('login')}} ">Login</a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="{{route('register')}} ">Register</a>
+        </li>
+        @endif
+        <li class="nav-item active">
+            <a class="nav-link" href="{{action('PollController@index')}} ">List of Your Polls</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{action('PollController@create')}} ">Create a Poll</a>
         </li>
       </ul>
     </div>
