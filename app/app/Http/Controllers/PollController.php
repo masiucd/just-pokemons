@@ -23,7 +23,7 @@ class PollController extends Controller
      */
     public function create()
     {
-        //
+        $form = view()
     }
 
     /**
