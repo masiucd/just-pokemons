@@ -19,8 +19,9 @@ class PollController extends Controller
      */
     public function index()
     {
-        $poll = Poll::where('user_id', Auth::id());
-        $list = view('poll.index',compact('poll'));
+        // dd(Auth::id());
+        $polls = Poll::where('user_id', Auth::id())->get();
+        $list = view('poll.index',compact('polls'));
         return $list;
     }
 
@@ -83,7 +84,10 @@ class PollController extends Controller
      */
     public function show($id)
     {
-        
+        $poll = Poll::find($id);
+
+        $detail = view('poll.show',compact('poll'));
+        return $detail;
     }
 
     /**
@@ -92,9 +96,19 @@ class PollController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $poll = Poll::findOrFail($id);
+        $options = Option::where($poll->id, 'user_id');
+        foreach($request->options as $option){
+            $options = Option::where($poll->id, 'user_id');
+        }
+
+        $poll = $poll->update($request->all());
+
+
+
+        return redirect(action('PollController@update',$poll->id));
     }
 
     /**
@@ -117,6 +131,10 @@ class PollController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $poll = Poll::findOrFail($id);
+
+        $poll->delete();
+
+        return redirect(action('PollController@index'));
     }
 }

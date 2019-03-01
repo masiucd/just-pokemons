@@ -99,6 +99,6 @@ class ResourceController extends Controller
 
         $user->delete();
 
-        return redirect(action('ResourceController@index'));
+        return redirect(action('PollController@index'));
     }
 }
