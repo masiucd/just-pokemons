@@ -14,6 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/poll/create', 'PollController@create')->name('create');
+Route::post('/poll/store', 'PollController@store')->name('store');
+Route::get('/poll/index', 'PollController@index')->name('index');
+// Route::get('/poll/delete/{id}', 'PollController@destroy')->name('delete')->where(['id' => '\d+']);
 
 Route::resource('/resource', 'ResourceController')->except('create','store');
 Route::resource('/poll', 'PollController');
@@ -23,7 +27,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/poll/create', 'PollController@create')->name('create');
-Route::post('/poll/store', 'PollController@store')->name('store');
 
 
