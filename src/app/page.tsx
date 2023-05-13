@@ -1,11 +1,10 @@
 import {PageWrapper} from "@/components/page_wrapper";
 import PokemonItem from "@/components/pokemon_item";
+import {EndPoints} from "@/data/endpoints/pokemon";
 import {Pokemon, PokemonsSchema} from "@/types/pokemon";
 
 async function getPokemons() {
-  const base = "https://pokeapi.co/api/v2/pokemon?limit=12";
-  // const base = "https://pokeapi.co/api/v2/pokemon?limit=102&offset=0";
-  const result = await fetch(base, {
+  const result = await fetch(EndPoints.allPokemons, {
     next: {
       tags: ["pokemons"],
       revalidate: 3600, // 1 hour
