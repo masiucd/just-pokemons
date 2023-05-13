@@ -1,19 +1,15 @@
 "use client";
 
-import Image, {type ImageLoaderProps} from "next/image";
 import Link from "next/link";
+import {Suspense} from "react";
 
 import {Pokemon} from "@/types/pokemon";
+
+import {PokemonImage} from "./pokemon_image";
 
 interface Props {
   pokemon: Pokemon;
 }
-
-const imageLoader = ({src, width, quality}: ImageLoaderProps) => {
-  return `https://img.pokemondb.net/artwork/large/${src}.jpg?raw=true?w=${width}&q=${
-    quality || 75
-  }`;
-};
 
 function PokemonItem({pokemon}: Props) {
   return (
@@ -28,16 +24,11 @@ function PokemonItem({pokemon}: Props) {
               {pokemon.name}
             </strong>
           </div>
+
           <div className="flex min-h-[20rem] flex-1 flex-col justify-center p-10">
-            {/* <div className="flex flex-1 flex-col justify-center p-5"> */}
-            <Image
-              loader={imageLoader}
-              src={`${pokemon.name}`}
-              alt={`Picture of the ${pokemon.name}`}
-              width={200}
-              quality={75}
-              height={200}
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+              <PokemonImage name={pokemon.name} />
+            </Suspense>
           </div>
         </Link>
       </div>

@@ -1,5 +1,5 @@
 import {PageWrapper} from "@/components/page_wrapper";
-import PokemonItem from "@/components/pokemon_item";
+import PokemonItem from "@/components/pokemon/pokemon_item";
 import {EndPoints} from "@/data/endpoints/pokemon";
 import {Pokemon, PokemonsSchema} from "@/types/pokemon";
 
