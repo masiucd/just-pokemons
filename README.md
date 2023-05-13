@@ -19,3 +19,7 @@ This is a simple project to show a list of pokemons and their details.
 
 ## Author
 - [Github](https://github.com/masiucd)
+
+
+## Web app url
+- [just pokemons](https://just-pokemons.vercel.app/)
