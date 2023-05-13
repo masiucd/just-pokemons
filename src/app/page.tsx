@@ -1,8 +1,10 @@
+import {PageWrapper} from "@/components/page_wrapper";
 import PokemonItem from "@/components/pokemon_item";
 import {Pokemon, PokemonsSchema} from "@/types/pokemon";
 
 async function getPokemons() {
-  const base = "https://pokeapi.co/api/v2/pokemon?limit=102&offset=0";
+  const base = "https://pokeapi.co/api/v2/pokemon?limit=12";
+  // const base = "https://pokeapi.co/api/v2/pokemon?limit=102&offset=0";
   const result = await fetch(base, {
     next: {
       tags: ["pokemons"],
@@ -17,13 +19,12 @@ async function getPokemons() {
 export default async function Home() {
   const pokemons = (await getPokemons()) as Pokemon[];
   return (
-    <div className="mx-auto max-w-[910px] border border-red-500">
-      <ul className="grid grid-cols-auto-fit justify-items-center   gap-5 p-0">
-        {pokemons.map((pokemon) => {
-          return <PokemonItem key={pokemon.name} pokemon={pokemon} />;
-        })}
+    <PageWrapper className="max-w-[800px] justify-center">
+      <ul className="grid grid-cols-auto-fit justify-items-center gap-1">
+        {pokemons.map((pokemon) => (
+          <PokemonItem key={pokemon.name} pokemon={pokemon} />
+        ))}
       </ul>
-      {/* <img src={pokemon1.url} alt="asd" /> */}
-    </div>
+    </PageWrapper>
   );
 }
