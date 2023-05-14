@@ -56,7 +56,7 @@ async function PokemonSlugPage({params}: Props) {
   if (!pokemon) {
     notFound();
   }
-  console.log(pokemon);
+  // console.log(pokemon);
 
   return (
     <div>

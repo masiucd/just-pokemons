@@ -15,9 +15,9 @@ export const PokemonImage = ({name}: Props) => {
       loader={imageLoader}
       src={`${name}`}
       alt={`Picture of the ${name}`}
-      width={200}
+      width={150}
       quality={75}
-      height={200}
+      height={100}
     />
   );
 };
