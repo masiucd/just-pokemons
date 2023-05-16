@@ -3,7 +3,11 @@ import "./globals.css";
 import {Inter} from "next/font/google";
 import {ReactNode} from "react";
 
-const inter = Inter({subsets: ["latin"]});
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata = {
   title: "Just Pokemons",
@@ -12,8 +16,8 @@ export const metadata = {
 
 export default function RootLayout({children}: {children: ReactNode}) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={inter.variable}>
+      <body>
         <main className="flex min-h-screen flex-col">{children}</main>
       </body>
     </html>

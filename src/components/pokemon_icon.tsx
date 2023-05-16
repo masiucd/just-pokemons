@@ -134,4 +134,4 @@ export function PokemonIcon({width = 25, height = 25, className}: Props) {
   );
 }
 
-export default Icon;
+export default PokemonIcon;

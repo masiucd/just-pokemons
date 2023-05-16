@@ -16,7 +16,6 @@ const usePokemons = (limit: number, offset: number) => {
     fetcher,
     {refreshInterval: 3600}
   );
-
   return {
     data,
     error,
@@ -32,13 +31,12 @@ const PokemonList = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
   return (
-    <div>
+    <section>
       <ul className="grid grid-cols-auto-fit justify-items-center gap-1">
         {data.results.map((pokemon: Pokemon) => (
           <PokemonItem key={pokemon.name} pokemon={pokemon} />
         ))}
       </ul>
-
       <Paginate
         goNext={() => {
           if (data.next) {
@@ -51,7 +49,7 @@ const PokemonList = () => {
           }
         }}
       />
-    </div>
+    </section>
   );
 };
 
