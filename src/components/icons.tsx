@@ -7,14 +7,17 @@ import {
   Twitter,
 } from "lucide-react";
 
+import {PokemonIcon} from "./pokemon_icon";
+
 export type Icon = LucideIcon;
 
 const Icons = {
   chevronFirst: ChevronFirst,
   chevronLast: ChevronLast,
-  Command,
-  Github,
-  Twitter,
+  cmd: Command,
+  github: Github,
+  twitter: Twitter,
+  pokemon: PokemonIcon,
 };
 
 export {Icons};
