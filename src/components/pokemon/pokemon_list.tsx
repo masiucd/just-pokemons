@@ -14,6 +14,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const usePokemons = (url: string) => {
   const {data, error, isLoading} = useSwr(url, fetcher, {
     refreshInterval: 3600,
+    suspense: true,
   });
   return {
     data,

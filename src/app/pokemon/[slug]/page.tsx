@@ -16,7 +16,7 @@ const getPokemon = async (slug: string) => {
     const result = await fetch(url, {
       next: {
         tags: ["pokemons"],
-        revalidate: 3600, // 1 hour
+        revalidate: 3600,
       },
     });
     const data = await result.json();
@@ -96,25 +96,24 @@ async function PokemonSlugPage({params}: Props) {
           </div>
 
           <ul className="flex flex-col gap-3 pr-1">
-            {pokemon.stats.map((x) => (
+            {pokemon.stats.map(({stat, base_stat}) => (
               <li key={randomUUID()}>
-                <p className="capitalize"> {x.stat.name}</p>
+                <p className="capitalize"> {stat.name}</p>
+                {/* TODO framer motion */}
                 <div
                   className={cn(
                     "h-8 rounded bg-slate-900 flex items-center pl-2 shadow text-white",
-                    getStatValue(x.base_stat)
+                    getStatValue(base_stat)
                   )}
                 >
-                  <p>{x.base_stat}</p>
+                  <p>{base_stat}</p>
                 </div>
               </li>
             ))}
           </ul>
         </div>
-        <p>Details here</p>
-        {/* <PokemonDetails
-            Pokemon={pokemon}
-        /> */}
+
+        <PokemonDetails Pokemon={pokemon} />
       </div>
     </PageWrapper>
   );

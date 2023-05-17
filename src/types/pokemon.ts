@@ -16,26 +16,6 @@ const Stats = z.object({
   }),
 });
 
-const VersionGroupDetail = z.object({
-  level_learned_at: z.number(),
-  move_learn_method: z.object({
-    name: z.string(),
-    url: z.string(),
-  }),
-  version_group: z.object({
-    name: z.string(),
-    url: z.string(),
-  }),
-});
-
-const Move = z.object({
-  move: z.object({
-    name: z.string(),
-    url: z.string(),
-  }),
-  version_group_details: z.array(VersionGroupDetail),
-});
-
 export const PokemonSchemaItem = z.object({
   id: z.number(),
   name: z.string(),
@@ -47,7 +27,6 @@ export const PokemonSchemaItem = z.object({
     name: z.string(),
     url: z.string(),
   }),
-  moves: z.array(Move),
 });
 
 export type PokemonItem = z.infer<typeof PokemonSchemaItem>;
