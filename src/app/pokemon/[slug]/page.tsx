@@ -3,6 +3,8 @@ import {randomUUID} from "node:crypto";
 import {notFound} from "next/navigation";
 import {z} from "zod";
 
+import {PageWrapper} from "@/components/page_wrapper";
+import {PokemonImage} from "@/components/pokemon/pokemon_image";
 import {EndPoints} from "@/data/endpoints/pokemon";
 
 const Stats = z.object({
@@ -59,21 +61,27 @@ async function PokemonSlugPage({params}: Props) {
   // console.log(pokemon);
 
   return (
-    <div>
-      <p>{pokemon.name}</p>
-      <p>{pokemon.weight}</p>
-      <p>{pokemon.height}</p>
-      <p>{pokemon.order}</p>
-      <ul>
-        {pokemon.stats.map((x) => (
-          <li key={randomUUID()}>
-            <p>{x.base_stat}</p>
-            <p>{x.effort}</p>
-            <p>{x.stat.name}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <PageWrapper className="border border-red-500">
+      <div>
+        <p>{pokemon.name}</p>
+        <PokemonImage name={pokemon.name} width={300} />
+        <p> weight {pokemon.weight}</p>
+        <p>height {pokemon.height}</p>
+        <p>order {pokemon.order}</p>
+        <div>
+          <p>stats</p>
+          <ul>
+            {pokemon.stats.map((x) => (
+              <li key={randomUUID()}>
+                <p>base stat {x.base_stat}</p>
+                <p>effort {x.effort}</p>
+                <p> state name {x.stat.name}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </PageWrapper>
   );
 }
 

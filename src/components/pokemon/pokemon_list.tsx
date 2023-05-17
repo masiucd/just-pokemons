@@ -5,19 +5,16 @@ import useSwr from "swr";
 import {EndPoints} from "@/data/endpoints/pokemon";
 import {Pokemon} from "@/types/pokemon";
 
+import ImageGrid from "../loaders/image_grid";
 import Paginate from "../paginate";
 import PokemonItem from "./pokemon_item";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const usePokemons = (url: string, limit: number, offset: number) => {
-  const {data, error, isLoading} = useSwr(
-    // `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`,
-    url,
-    // EndPoints.allPokemons(limit, offset),
-    fetcher,
-    {refreshInterval: 3600}
-  );
+const usePokemons = (url: string) => {
+  const {data, error, isLoading} = useSwr(url, fetcher, {
+    refreshInterval: 3600,
+  });
   return {
     data,
     error,
@@ -27,13 +24,9 @@ const usePokemons = (url: string, limit: number, offset: number) => {
 
 const LIMIT = 9;
 const PokemonList = () => {
-  const [offset, setOffset] = useState(0);
-  const [url, setUrl] = useState(
-    "https://pokeapi.co/api/v2/pokemon?limit=6&offset=0"
-  );
-  const {data, error, isLoading} = usePokemons(url, LIMIT, offset);
-
-  if (isLoading) return <div>Loading...</div>;
+  const [url, setUrl] = useState(EndPoints.allPokemons(LIMIT, 0));
+  const {data, error, isLoading} = usePokemons(url);
+  if (isLoading) return <ImageGrid />;
   if (error) return <div>Error</div>;
   console.log("data", data);
   return (

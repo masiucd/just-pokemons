@@ -1,3 +1,4 @@
+"use client";
 import Image, {type ImageLoaderProps} from "next/image";
 
 const imageLoader = ({src, width, quality}: ImageLoaderProps) =>
@@ -7,17 +8,18 @@ const imageLoader = ({src, width, quality}: ImageLoaderProps) =>
 
 interface Props {
   name: string;
+  width?: number;
 }
 
-export const PokemonImage = ({name}: Props) => {
+export function PokemonImage({name, width = 150}: Props) {
   return (
     <Image
       loader={imageLoader}
       src={`${name}`}
       alt={`Picture of the ${name}`}
-      width={150}
+      width={width}
       quality={75}
       height={100}
     />
   );
-};
+}
