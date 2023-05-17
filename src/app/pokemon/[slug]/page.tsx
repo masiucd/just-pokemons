@@ -2,65 +2,13 @@ import {randomUUID} from "node:crypto";
 
 import {notFound} from "next/navigation";
 import {Suspense} from "react";
-import {z} from "zod";
 
 import {cn} from "@/app/lib/styles";
 import {PageWrapper} from "@/components/page_wrapper";
+import PokemonDetails from "@/components/pokemon/pokemon_details";
 import {PokemonImage} from "@/components/pokemon/pokemon_image";
 import {EndPoints} from "@/data/endpoints/pokemon";
-
-function convertToPercent(value: number) {
-  if (value < 1 || value > 1000) {
-    throw new Error(
-      "Invalid value. Please provide a value between 1 and 1000."
-    );
-  }
-
-  return parseInt(((value / 1000) * 100).toFixed(2), 10);
-}
-
-const Stats = z.object({
-  base_stat: z.number(),
-  effort: z.number(),
-  stat: z.object({
-    name: z.string(),
-    url: z.string(),
-  }),
-});
-
-const VersionGroupDetail = z.object({
-  level_learned_at: z.number(),
-  move_learn_method: z.object({
-    name: z.string(),
-    url: z.string(),
-  }),
-  version_group: z.object({
-    name: z.string(),
-    url: z.string(),
-  }),
-});
-
-const Move = z.object({
-  move: z.object({
-    name: z.string(),
-    url: z.string(),
-  }),
-  version_group_details: z.array(VersionGroupDetail),
-});
-
-const PokemonSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  stats: z.array(Stats),
-  weight: z.number(),
-  height: z.number(),
-  order: z.number(),
-  species: z.object({
-    name: z.string(),
-    url: z.string(),
-  }),
-  moves: z.array(Move),
-});
+import {PokemonSchemaItem} from "@/types/pokemon";
 
 const getPokemon = async (slug: string) => {
   const url = EndPoints.pokemonByName(slug);
@@ -72,7 +20,7 @@ const getPokemon = async (slug: string) => {
       },
     });
     const data = await result.json();
-    return PokemonSchema.parse(data);
+    return PokemonSchemaItem.parse(data);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
@@ -92,51 +40,81 @@ async function PokemonSlugPage({params}: Props) {
   if (!pokemon) {
     notFound();
   }
-  // console.log(pokemon);
 
-  const WEIGHT = Math.floor((pokemon.weight / 100) * 10);
-  const HEIGHT = Math.floor(pokemon.height / 100);
-  const getHeightInPercent = (height: number) => {};
-  console.log("HEIGHT", convertToPercent(pokemon.height));
-
-  let s = "";
-  switch (WEIGHT) {
-    case 10:
-      s = "w-[10%]";
-      break;
-    case 90:
-      s = "w-[90%]";
-      break;
-    default:
-      s = "w-[100%]";
+  function getStatValue(stat: number) {
+    if (stat < 10) {
+      return "w-[10%]";
+    }
+    if (stat < 20) {
+      return "w-[20%]";
+    }
+    if (stat < 30) {
+      return "w-[30%]";
+    }
+    if (stat < 40) {
+      return "w-[40%]";
+    }
+    if (stat < 50) {
+      return "w-[50%]";
+    }
+    if (stat < 60) {
+      return "w-[60%]";
+    }
+    if (stat < 70) {
+      return "w-[70%]";
+    }
+    if (stat < 80) {
+      return "w-[80%]";
+    }
+    if (stat < 90) {
+      return "w-[90%]";
+    }
+    return "w-[100%]";
   }
 
   return (
-    <PageWrapper className="justify-center border border-red-500">
-      <div className="border border-green-600">
-        <div className="mb-5 border border-red-500 p-1">
-          <Suspense fallback={<div>Loading...</div>}>
-            <PokemonImage name={pokemon.name} width={300} />
-          </Suspense>
-          <h3>{pokemon.name}</h3>
-        </div>
-        <div className={cn("h-10 bg-red-300", `${s}`)}>
-          <p> weight {pokemon.weight}</p>
-        </div>
-        <p>height {pokemon.height}</p>
-        <p>order {pokemon.order}</p>
-        <div>
-          <p>stats</p>
-          <ul>
+    <PageWrapper className="max-w-6xl justify-center border border-red-500">
+      <div className="flex gap-5 border border-green-600">
+        <div className="rounded shadow">
+          <div className="relative mb-5 rounded p-2 ">
+            <Suspense fallback={<div>Loading...</div>}>
+              <PokemonImage name={pokemon.name} width={300} />
+            </Suspense>
+            <h3 className="capitalize">{pokemon.name}</h3>
+            <div className="flex gap-4 ">
+              <p>
+                {" "}
+                W: <span>{pokemon.weight}Kg</span>
+              </p>
+              <p>
+                H: <span>{pokemon.height}M</span>
+              </p>
+            </div>
+            <p className="absolute right-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-red-500 text-white">
+              #{pokemon.order}
+            </p>
+          </div>
+
+          <ul className="flex flex-col gap-3 pr-1">
             {pokemon.stats.map((x) => (
               <li key={randomUUID()}>
-                <p>base stat {x.base_stat}</p>
-                <p>effort {x.effort}</p>
-                <p> state name {x.stat.name}</p>
+                <p className="capitalize"> {x.stat.name}</p>
+                <div
+                  className={cn(
+                    "h-8 rounded bg-slate-900 flex items-center pl-2 shadow text-white",
+                    getStatValue(x.base_stat)
+                  )}
+                >
+                  <p>{x.base_stat}</p>
+                </div>
               </li>
             ))}
           </ul>
         </div>
+        <p>Details here</p>
+        {/* <PokemonDetails
+            Pokemon={pokemon}
+        /> */}
       </div>
     </PageWrapper>
   );
