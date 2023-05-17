@@ -27,8 +27,8 @@ const PokemonList = () => {
   const [url, setUrl] = useState(EndPoints.allPokemons(LIMIT, 0));
   const {data, error, isLoading} = usePokemons(url);
   if (isLoading) return <ImageGrid />;
+  // if (isLoading) return <p></p>;
   if (error) return <div>Error</div>;
-  console.log("data", data);
   return (
     <section>
       <ul className="grid grid-cols-auto-fit justify-items-center gap-1">
@@ -37,17 +37,15 @@ const PokemonList = () => {
         ))}
       </ul>
       <Paginate
+        leftEnabled={data.previous}
+        rightEnabled={data.next}
         goNext={() => {
-          if (data.next) {
-            // setOffset(offset + LIMIT);
-            setUrl(data.next);
-          }
+          // setOffset(offset + LIMIT);
+          setUrl(data.next);
         }}
         goPrevious={() => {
-          if (data.previous) {
-            // setOffset(offset - LIMIT);
-            setUrl(data.previous);
-          }
+          // setOffset(offset - LIMIT);
+          setUrl(data.previous);
         }}
       />
     </section>

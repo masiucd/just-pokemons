@@ -1,3 +1,4 @@
+"use client";
 import ContentLoader from "react-content-loader";
 
 import {cn} from "@/app/lib/styles";
@@ -9,6 +10,7 @@ const ImageGrid = ({className}: Props) => (
   <ContentLoader
     viewBox="0 0 800 575"
     className={cn("h-[575px] w-[800px] bg-slate-100 ", className)}
+    id="loader"
   >
     <rect x="537" y="9" rx="2" ry="2" width="140" height="10" />
     <rect x="14" y="30" rx="2" ry="2" width="667" height="11" />

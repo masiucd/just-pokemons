@@ -1,35 +1,55 @@
+import {ReactNode} from "react";
+
 import {Icons} from "./icons";
 
 interface Props {
   goNext: () => void;
   goPrevious: () => void;
+  leftEnabled: boolean;
+  rightEnabled: boolean;
 }
 
-const Paginate = ({goNext, goPrevious}: Props) => {
+interface PaginagtionButtonProps {
+  changePage: () => void;
+  disabled: boolean;
+  icon: ReactNode;
+}
+
+function PaginationButton({
+  changePage,
+  disabled,
+  icon,
+}: PaginagtionButtonProps) {
+  return (
+    <button
+      className="hover:opacity-60 disabled:opacity-40 disabled:hover:opacity-40"
+      disabled={disabled}
+      onClick={() => {
+        changePage();
+      }}
+    >
+      <span>
+        <span>{icon}</span>
+      </span>
+    </button>
+  );
+}
+
+function Paginate({goNext, goPrevious, leftEnabled, rightEnabled}: Props) {
   return (
     <div className="flex justify-end gap-5  px-1 py-2">
-      <button
-        onClick={async () => {
-          goPrevious();
-        }}
-      >
-        <span>
-          <span>
-            <Icons.chevronFirst />
-          </span>
-        </span>
-      </button>
-      <button
-        onClick={async () => {
-          goNext();
-        }}
-      >
-        <span>
-          <Icons.chevronLast />
-        </span>
-      </button>
+      <PaginationButton
+        changePage={goPrevious}
+        disabled={!leftEnabled}
+        icon={<Icons.chevronFirst />}
+      />
+      <PaginationButton
+        changePage={goNext}
+        disabled={!rightEnabled}
+        icon={<Icons.chevronLast />}
+      />
     </div>
   );
-};
+}
 
 export default Paginate;
