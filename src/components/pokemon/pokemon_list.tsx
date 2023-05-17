@@ -10,9 +10,11 @@ import PokemonItem from "./pokemon_item";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const usePokemons = (limit: number, offset: number) => {
+const usePokemons = (url: string, limit: number, offset: number) => {
   const {data, error, isLoading} = useSwr(
-    EndPoints.allPokemons(limit, offset),
+    // `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`,
+    url,
+    // EndPoints.allPokemons(limit, offset),
     fetcher,
     {refreshInterval: 3600}
   );
@@ -26,10 +28,14 @@ const usePokemons = (limit: number, offset: number) => {
 const LIMIT = 9;
 const PokemonList = () => {
   const [offset, setOffset] = useState(0);
-  const {data, error, isLoading} = usePokemons(LIMIT, offset);
+  const [url, setUrl] = useState(
+    "https://pokeapi.co/api/v2/pokemon?limit=6&offset=0"
+  );
+  const {data, error, isLoading} = usePokemons(url, LIMIT, offset);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
+  console.log("data", data);
   return (
     <section>
       <ul className="grid grid-cols-auto-fit justify-items-center gap-1">
@@ -40,12 +46,14 @@ const PokemonList = () => {
       <Paginate
         goNext={() => {
           if (data.next) {
-            setOffset(offset + LIMIT);
+            // setOffset(offset + LIMIT);
+            setUrl(data.next);
           }
         }}
         goPrevious={() => {
           if (data.previous) {
-            setOffset(offset - LIMIT);
+            // setOffset(offset - LIMIT);
+            setUrl(data.previous);
           }
         }}
       />
