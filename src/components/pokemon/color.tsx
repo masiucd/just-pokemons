@@ -3,6 +3,8 @@ import {z} from "zod";
 
 import {UrlSchema, UrlType} from "@/types/pokemon";
 
+import Label from "./label";
+
 // "https://pokeapi.co/api/v2/pokemon-color/8/"
 
 const ColorSchema = z.object({
@@ -45,7 +47,7 @@ export default function Color({color, language}: Props) {
 
   return (
     <div>
-      <strong>
+      <Label>
         {language === "en"
           ? "color"
           : language === "fr"
@@ -59,7 +61,7 @@ export default function Color({color, language}: Props) {
           : language === "de"
           ? "Farbe"
           : "color"}
-      </strong>
+      </Label>
       <p>{maybeLanguage?.name ?? "No Color for the language"}</p>
     </div>
   );

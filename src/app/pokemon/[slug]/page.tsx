@@ -73,9 +73,9 @@ async function PokemonSlugPage({params}: Props) {
   }
 
   return (
-    <PageWrapper className="max-w-6xl justify-center border border-red-500">
-      <div className="flex flex-col gap-5 border border-green-600 sm:flex-row">
-        <div className="w-full rounded border border-pink-500 shadow sm:w-1/3">
+    <PageWrapper className="max-w-6xl justify-center ">
+      <div className="flex flex-col gap-5  sm:flex-row">
+        <div className="w-full rounded  shadow sm:w-1/3">
           <div className="relative mb-5 rounded p-2 ">
             <div className="mb-5">
               <Suspense fallback={<div>Loading...</div>}>

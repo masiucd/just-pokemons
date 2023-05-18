@@ -3,10 +3,18 @@
 import {useState} from "react";
 import useSwr from "swr";
 
+import {
+  CaptureRate,
+  Description,
+  Details,
+  Happiness,
+  Languages,
+} from "@/app/lib/language";
 import {cn} from "@/app/lib/styles";
 import {DetailsSchema, PokemonItem} from "@/types/pokemon";
 
 import Color from "./color";
+import Label from "./label";
 
 // type SpeciesInfo = z.infer<typeof DetailsSchema>;
 
@@ -45,24 +53,6 @@ export const useGetSpeciesInfo = (url: string) => {
   // });
 };
 
-const Languages = Object.freeze([
-  {name: "English", code: "en"},
-  {name: "Korean", code: "ko"},
-  {name: "French", code: "fr"},
-  {name: "German", code: "de"},
-  {name: "Spanish", code: "es"},
-  {name: "Japanese", code: "ja"},
-] as const);
-
-const Details: Record<string, string> = Object.freeze({
-  en: "details",
-  fr: "détails",
-  es: "detalles",
-  de: "Einzelheiten",
-  js: "詳細",
-  ko: "세부 사항",
-});
-
 interface TopProps {
   language: string;
   // eslint-disable-next-line no-unused-vars
@@ -70,9 +60,8 @@ interface TopProps {
 }
 function Top({language, setLanguage}: TopProps) {
   return (
-    <div className="mb-5 flex items-center justify-between px-2">
-      <h2 className="capitalize">{getLanguageValue(language, Details)}</h2>
-      {/* <div className="ml-auto flex flex-1 justify-end border"> */}
+    <div className="mb-5 flex items-center justify-between sm:px-1">
+      <h3 className="capitalize">{getLanguageValue(language, Details)}</h3>
       <ul className="flex flex-wrap gap-3">
         {Languages.map((x) => (
           // TODO Make tooltip
@@ -92,15 +81,6 @@ function Top({language, setLanguage}: TopProps) {
     </div>
   );
 }
-
-const Description: Record<string, string> = Object.freeze({
-  en: "description",
-  es: "descripción",
-  fr: "description",
-  de: "beschreibung",
-  ja: "説明",
-  ko: "설명",
-});
 
 function getLanguageValue(language: string, record: Record<string, string>) {
   const value = record[language];
@@ -128,11 +108,9 @@ export default function PokemonDetails({Pokemon}: Props) {
           setLanguage(code);
         }}
       />
-      <aside className="flex w-full flex-col">
+      <aside className="flex w-full flex-col justify-center sm:px-1">
         <div>
-          <strong className="capitalize">
-            {getLanguageValue(language, Description)}
-          </strong>
+          <Label>{getLanguageValue(language, Description)}</Label>
           <p>
             {x?.flavor_text ?? (
               <span>No description with language {language}</span>
@@ -140,45 +118,18 @@ export default function PokemonDetails({Pokemon}: Props) {
           </p>
         </div>
         <div>
-          <strong>
-            {language === "en"
-              ? "Base Happnies"
-              : language === "fr"
-              ? "bonheur de base"
-              : language === "es"
-              ? "felicidad básica"
-              : language === "de"
-              ? "Basisglück"
-              : language === "ja"
-              ? "ベースハッピネス"
-              : language === "ko"
-              ? "기본 행복"
-              : "Base Happnies"}
-          </strong>
+          <Label>{getLanguageValue(language, Happiness)}</Label>
           <p>{data.base_happiness}</p>
         </div>
         <div>
           <div>
-            <strong>
-              {language === "en"
-                ? "Capture Rate"
-                : language === "fr"
-                ? "Taux de capture"
-                : language === "es"
-                ? "Tasa de captura"
-                : language === "de"
-                ? "Fangrate"
-                : language === "ja"
-                ? "キャプチャレート"
-                : language === "ko"
-                ? "캡처율"
-                : "Capture Rate"}
-            </strong>
+            <Label>{getLanguageValue(language, CaptureRate)}</Label>
             <p>{data.capture_rate} </p>
           </div>
         </div>
         <Color color={data.color} language={language} />
         <div>
+          <Label>Egg groups</Label>
           <ul>
             {data.egg_groups.map((x) => (
               <li key={x.name}> {x.name} </li>
