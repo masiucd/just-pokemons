@@ -29,4 +29,10 @@ export const PokemonSchemaItem = z.object({
   }),
 });
 
+export const UrlSchema = z.object({
+  name: z.string(),
+  url: z.string(),
+});
+
+export type UrlType = z.infer<typeof UrlSchema>;
 export type PokemonItem = z.infer<typeof PokemonSchemaItem>;

@@ -4,16 +4,16 @@ import {useState} from "react";
 import useSwr from "swr";
 import {z} from "zod";
 
-import {PokemonItem} from "@/types/pokemon";
+import {cn} from "@/app/lib/styles";
+import {PokemonItem, UrlSchema} from "@/types/pokemon";
+
+import Color from "./color";
 
 const DetailsSchema = z.object({
   base_happiness: z.number(),
   capture_rate: z.number(),
   gender_rate: z.number(),
-  color: z.object({
-    name: z.string(),
-    url: z.string(),
-  }),
+  color: UrlSchema,
   egg_groups: z.array(
     z.object({
       name: z.string(),
@@ -75,11 +75,20 @@ export const useGetSpeciesInfo = (url: string) => {
   // });
 };
 
+const Languages = Object.freeze([
+  {name: "English", code: "en"},
+  {name: "Korean", code: "ko"},
+  {name: "French", code: "fr"},
+  {name: "German", code: "de"},
+  {name: "Spanish", code: "es"},
+  {name: "Japanese", code: "ja"},
+] as const);
+
 interface Props {
   Pokemon: PokemonItem;
 }
 export default function PokemonDetails({Pokemon}: Props) {
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("fr");
   const {data, error, isLoading} = useGetSpeciesInfo(Pokemon.species.url);
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
@@ -87,17 +96,44 @@ export default function PokemonDetails({Pokemon}: Props) {
   // Desc here
   const x = data.flavor_text_entries.find((x) => x.language.name === language);
   console.log("x", x);
-
+  console.log("data", data);
   return (
     <div>
-      PokemonDetails
+      <div className="flex justify-between">
+        <h2>PokemonDetails</h2>
+        <div>
+          <strong>Language</strong>
+          <ul className="flex flex-wrap gap-3">
+            {Languages.map((x) => (
+              // TODO Make tooltip
+              <li
+                key={x.code}
+                className={cn(
+                  "cursor-pointer rounded bg-slate-300 p-1 shadow transition-all hover:bg-slate-200 hover:shadow-lg",
+                  language === x.code && "bg-slate-100 shadow-lg"
+                )}
+                onClick={() => setLanguage(x.code)}
+              >
+                {x.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
       <div>
-        <h3>Description</h3>
+        <strong>Description</strong>
         <p>
           {x?.flavor_text ?? (
             <span>No description with language {language}</span>
           )}{" "}
         </p>
+      </div>
+      <div>
+        <strong>Base Happiness</strong>
+      </div>
+      <div>
+        <strong>Color</strong>
+        <Color color={data.color} language={language} />
       </div>
     </div>
   );

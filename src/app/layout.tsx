@@ -6,10 +6,16 @@ import {ReactNode} from "react";
 
 import {cn} from "./lib/styles";
 
-const local = localFont({
-  src: "../../public/fonts/kaisei-tokumin-latin-700-normal.woff2",
-  weight: "700",
-  variable: "--font-kaisei",
+// const local = localFont({
+//   src: "../../public/fonts/kaisei-tokumin-latin-700-normal.woff2",
+//   weight: "700",
+//   variable: "--font-inter",
+//   display: "swap",
+// });
+const localInter = localFont({
+  src: "../../public/fonts/inter_font/Inter-Medium.otf",
+  weight: "400",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -30,8 +36,7 @@ export default function RootLayout({children}: {children: ReactNode}) {
       lang="en"
       className={cn(
         "text-black bg-white dark:text-white dark:bg-[#111010]",
-
-        local.variable
+        localInter.variable
       )}
     >
       <body>

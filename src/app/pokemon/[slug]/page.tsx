@@ -112,7 +112,6 @@ async function PokemonSlugPage({params}: Props) {
             ))}
           </ul>
         </div>
-
         <PokemonDetails Pokemon={pokemon} />
       </div>
     </PageWrapper>
