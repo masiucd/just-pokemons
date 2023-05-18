@@ -26,7 +26,7 @@ export const useGetSpeciesInfo = (url: string) => {
       const data = await response.json();
       return DetailsSchema.parse(data);
     },
-    {refreshInterval: 3600, suspense: true}
+    {refreshInterval: 3600, suspense: true, fallback: <div>...loading</div>}
   );
 
   return {

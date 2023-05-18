@@ -6,7 +6,7 @@ interface Props {
   className?: string;
 }
 
-export function PokemonIcon({width = 25, height = 25, className}: Props) {
+export function PokemonIcon({width = 90, height = 90, className}: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
