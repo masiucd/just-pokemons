@@ -2,43 +2,13 @@
 
 import {useState} from "react";
 import useSwr from "swr";
-import {z} from "zod";
 
 import {cn} from "@/app/lib/styles";
-import {PokemonItem, UrlSchema} from "@/types/pokemon";
+import {DetailsSchema, PokemonItem} from "@/types/pokemon";
 
 import Color from "./color";
 
-const DetailsSchema = z.object({
-  base_happiness: z.number(),
-  capture_rate: z.number(),
-  gender_rate: z.number(),
-  color: UrlSchema,
-  egg_groups: z.array(
-    z.object({
-      name: z.string(),
-      url: z.string(),
-    })
-  ),
-  hatch_counter: z.number(),
-  flavor_text_entries: z.array(
-    z.object({
-      flavor_text: z.string(),
-      language: z.object({
-        name: z.string(),
-        url: z.string(),
-      }),
-
-      version: z.object({
-        name: z.string(),
-        url: z.string(),
-      }),
-    })
-  ),
-  form_descriptions: z.array(z.any()),
-});
-
-type SpeciesInfo = z.infer<typeof DetailsSchema>;
+// type SpeciesInfo = z.infer<typeof DetailsSchema>;
 
 export const useGetSpeciesInfo = (url: string) => {
   const {data, error, isLoading} = useSwr(
@@ -84,6 +54,59 @@ const Languages = Object.freeze([
   {name: "Japanese", code: "ja"},
 ] as const);
 
+const Details: Record<string, string> = Object.freeze({
+  en: "details",
+  fr: "détails",
+  es: "detalles",
+  de: "Einzelheiten",
+  js: "詳細",
+  ko: "세부 사항",
+});
+
+interface TopProps {
+  language: string;
+  // eslint-disable-next-line no-unused-vars
+  setLanguage: (code: string) => void;
+}
+function Top({language, setLanguage}: TopProps) {
+  return (
+    <div className="mb-5 flex items-center justify-between px-2">
+      <h2 className="capitalize">{getLanguageValue(language, Details)}</h2>
+      {/* <div className="ml-auto flex flex-1 justify-end border"> */}
+      <ul className="flex flex-wrap gap-3">
+        {Languages.map((x) => (
+          // TODO Make tooltip
+          <li
+            key={x.code}
+            className={cn(
+              "cursor-pointer rounded bg-slate-300 p-1 shadow transition-all hover:bg-slate-200 hover:shadow-lg",
+              language === x.code && "bg-slate-100 shadow-lg"
+            )}
+            onClick={() => setLanguage(x.code)}
+          >
+            {x.name}
+          </li>
+        ))}
+      </ul>
+      {/* </div> */}
+    </div>
+  );
+}
+
+const Description: Record<string, string> = Object.freeze({
+  en: "description",
+  es: "descripción",
+  fr: "description",
+  de: "beschreibung",
+  ja: "説明",
+  ko: "설명",
+});
+
+function getLanguageValue(language: string, record: Record<string, string>) {
+  const value = record[language];
+  return value ?? `No language value for  ${language}`;
+}
+
 interface Props {
   Pokemon: PokemonItem;
 }
@@ -98,43 +121,71 @@ export default function PokemonDetails({Pokemon}: Props) {
   console.log("x", x);
   console.log("data", data);
   return (
-    <div>
-      <div className="flex justify-between">
-        <h2>PokemonDetails</h2>
+    <section className="w-full sm:w-2/3">
+      <Top
+        language={language}
+        setLanguage={(code: string) => {
+          setLanguage(code);
+        }}
+      />
+      <aside className="flex w-full flex-col">
         <div>
-          <strong>Language</strong>
-          <ul className="flex flex-wrap gap-3">
-            {Languages.map((x) => (
-              // TODO Make tooltip
-              <li
-                key={x.code}
-                className={cn(
-                  "cursor-pointer rounded bg-slate-300 p-1 shadow transition-all hover:bg-slate-200 hover:shadow-lg",
-                  language === x.code && "bg-slate-100 shadow-lg"
-                )}
-                onClick={() => setLanguage(x.code)}
-              >
-                {x.name}
-              </li>
+          <strong className="capitalize">
+            {getLanguageValue(language, Description)}
+          </strong>
+          <p>
+            {x?.flavor_text ?? (
+              <span>No description with language {language}</span>
+            )}{" "}
+          </p>
+        </div>
+        <div>
+          <strong>
+            {language === "en"
+              ? "Base Happnies"
+              : language === "fr"
+              ? "bonheur de base"
+              : language === "es"
+              ? "felicidad básica"
+              : language === "de"
+              ? "Basisglück"
+              : language === "ja"
+              ? "ベースハッピネス"
+              : language === "ko"
+              ? "기본 행복"
+              : "Base Happnies"}
+          </strong>
+          <p>{data.base_happiness}</p>
+        </div>
+        <div>
+          <div>
+            <strong>
+              {language === "en"
+                ? "Capture Rate"
+                : language === "fr"
+                ? "Taux de capture"
+                : language === "es"
+                ? "Tasa de captura"
+                : language === "de"
+                ? "Fangrate"
+                : language === "ja"
+                ? "キャプチャレート"
+                : language === "ko"
+                ? "캡처율"
+                : "Capture Rate"}
+            </strong>
+            <p>{data.capture_rate} </p>
+          </div>
+        </div>
+        <Color color={data.color} language={language} />
+        <div>
+          <ul>
+            {data.egg_groups.map((x) => (
+              <li key={x.name}> {x.name} </li>
             ))}
           </ul>
         </div>
-      </div>
-      <div>
-        <strong>Description</strong>
-        <p>
-          {x?.flavor_text ?? (
-            <span>No description with language {language}</span>
-          )}{" "}
-        </p>
-      </div>
-      <div>
-        <strong>Base Happiness</strong>
-      </div>
-      <div>
-        <strong>Color</strong>
-        <Color color={data.color} language={language} />
-      </div>
-    </div>
+      </aside>
+    </section>
   );
 }

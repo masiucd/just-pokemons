@@ -23,7 +23,6 @@ function PokemonItem({pokemon}: Props) {
             {pokemon.name}
           </strong>
         </div>
-
         <div className="flex flex-1 flex-col items-center justify-center ">
           <Suspense fallback={<div>Loading...</div>}>
             <PokemonImage name={pokemon.name} />

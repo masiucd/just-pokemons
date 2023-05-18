@@ -38,12 +38,29 @@ export default function Color({color, language}: Props) {
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
-  console.log("data", data);
-  const foo = data.names.find((x) => x.language.name === language);
-  console.log("foo", foo);
+
+  const maybeLanguage = data.names.find(
+    (item) => item.language.name === language
+  );
+
   return (
     <div>
-      <p>{foo?.name ?? "No Color for the language"}</p>
+      <strong>
+        {language === "en"
+          ? "color"
+          : language === "fr"
+          ? "couleur"
+          : language === "es"
+          ? "color"
+          : language === "ja"
+          ? "色"
+          : language === "ko"
+          ? "색깔"
+          : language === "de"
+          ? "Farbe"
+          : "color"}
+      </strong>
+      <p>{maybeLanguage?.name ?? "No Color for the language"}</p>
     </div>
   );
 }

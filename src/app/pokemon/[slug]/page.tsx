@@ -74,21 +74,26 @@ async function PokemonSlugPage({params}: Props) {
 
   return (
     <PageWrapper className="max-w-6xl justify-center border border-red-500">
-      <div className="flex gap-5 border border-green-600">
-        <div className="rounded shadow">
+      <div className="flex flex-col gap-5 border border-green-600 sm:flex-row">
+        <div className="w-full rounded border border-pink-500 shadow sm:w-1/3">
           <div className="relative mb-5 rounded p-2 ">
-            <Suspense fallback={<div>Loading...</div>}>
-              <PokemonImage name={pokemon.name} width={300} />
-            </Suspense>
-            <h3 className="capitalize">{pokemon.name}</h3>
-            <div className="flex gap-4 ">
-              <p>
-                {" "}
-                W: <span>{pokemon.weight}Kg</span>
-              </p>
-              <p>
-                H: <span>{pokemon.height}M</span>
-              </p>
+            <div className="mb-5">
+              <Suspense fallback={<div>Loading...</div>}>
+                <PokemonImage name={pokemon.name} width={300} />
+              </Suspense>
+            </div>
+            <div className="flex items-center justify-between px-1">
+              <h3 className="capitalize">{pokemon.name}</h3>
+              <ul className="flex gap-2">
+                <li>
+                  {" "}
+                  <span>{pokemon.weight} KG</span>
+                </li>
+                <li>|</li>
+                <li>
+                  <span>{pokemon.height} M</span>
+                </li>
+              </ul>
             </div>
             <p className="absolute right-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-red-500 text-white">
               #{pokemon.order}

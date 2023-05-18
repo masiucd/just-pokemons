@@ -34,5 +34,34 @@ export const UrlSchema = z.object({
   url: z.string(),
 });
 
+export const DetailsSchema = z.object({
+  base_happiness: z.number(),
+  capture_rate: z.number(),
+  gender_rate: z.number(),
+  color: UrlSchema,
+  egg_groups: z.array(
+    z.object({
+      name: z.string(),
+      url: z.string(),
+    })
+  ),
+  hatch_counter: z.number(),
+  flavor_text_entries: z.array(
+    z.object({
+      flavor_text: z.string(),
+      language: z.object({
+        name: z.string(),
+        url: z.string(),
+      }),
+
+      version: z.object({
+        name: z.string(),
+        url: z.string(),
+      }),
+    })
+  ),
+  form_descriptions: z.array(z.any()),
+});
+
 export type UrlType = z.infer<typeof UrlSchema>;
 export type PokemonItem = z.infer<typeof PokemonSchemaItem>;
