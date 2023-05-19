@@ -29,8 +29,8 @@ const PokemonList = () => {
   const [url, setUrl] = useState(EndPoints.allPokemons(LIMIT, 0));
   const {data, error, isLoading} = usePokemons(url);
   if (isLoading) return <ImageGrid />;
-  // if (isLoading) return <p></p>;
   if (error) return <div>Error</div>;
+  // if (isLoading) return <p></p>;
   return (
     <section>
       <ul className="grid grid-cols-auto-fit justify-items-center gap-1">
