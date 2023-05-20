@@ -7,26 +7,7 @@ import {cn} from "@/app/lib/styles";
 import {PageWrapper} from "@/components/page_wrapper";
 import PokemonDetails from "@/components/pokemon/pokemon_details";
 import {PokemonImage} from "@/components/pokemon/pokemon_image";
-import {EndPoints} from "@/data/endpoints/pokemon";
-import {PokemonSchemaItem} from "@/types/pokemon";
-
-const getPokemon = async (slug: string) => {
-  const url = EndPoints.pokemonByName(slug);
-  try {
-    const result = await fetch(url, {
-      next: {
-        tags: ["pokemons"],
-        revalidate: 3600,
-      },
-    });
-    const data = await result.json();
-    return PokemonSchemaItem.parse(data);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
-    return null;
-  }
-};
+import {getPokemon} from "@/lib/hooks/get_pokemon";
 
 interface Props {
   params: {

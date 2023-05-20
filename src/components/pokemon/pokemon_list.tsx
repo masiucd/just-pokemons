@@ -24,15 +24,14 @@ const usePokemons = (url: string) => {
   };
 };
 
-const LIMIT = 9;
+const LIMIT = 12;
 const PokemonList = () => {
   const [url, setUrl] = useState(EndPoints.allPokemons(LIMIT, 0));
   const {data, error, isLoading} = usePokemons(url);
   if (isLoading) return <ImageGrid />;
   if (error) return <div>Error</div>;
-  // if (isLoading) return <p></p>;
   return (
-    <section>
+    <section className="flex flex-col px-1 pt-5 ">
       <ul className="grid grid-cols-auto-fit justify-items-center gap-1">
         {data.results.map((pokemon: Pokemon) => (
           <PokemonItem key={pokemon.name} pokemon={pokemon} />
@@ -42,11 +41,9 @@ const PokemonList = () => {
         leftEnabled={data.previous}
         rightEnabled={data.next}
         goNext={() => {
-          // setOffset(offset + LIMIT);
           setUrl(data.next);
         }}
         goPrevious={() => {
-          // setOffset(offset - LIMIT);
           setUrl(data.previous);
         }}
       />

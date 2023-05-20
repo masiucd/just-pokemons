@@ -5,7 +5,7 @@ import PokemonList from "@/components/pokemon/pokemon_list";
 
 function Home() {
   return (
-    <PageWrapper className="max-w-[800px] justify-center">
+    <PageWrapper className="justify-center">
       <PokemonList />
     </PageWrapper>
   );

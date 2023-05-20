@@ -4,6 +4,7 @@ import {
   Command,
   Github,
   type Icon as LucideIcon,
+  Search,
   Twitter,
 } from "lucide-react";
 
@@ -18,6 +19,7 @@ const Icons = {
   github: Github,
   twitter: Twitter,
   pokemon: PokemonIcon,
+  search: Search,
 };
 
 export {Icons};

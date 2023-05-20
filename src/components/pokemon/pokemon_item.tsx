@@ -15,11 +15,11 @@ function PokemonItem({pokemon}: Props) {
   return (
     <li
       key={pokemon.name}
-      className="flex min-h-[22rem] w-full flex-col gap-1 rounded border border-slate-300 bg-white shadow transition-all duration-200 hover:z-10 hover:rotate-2 hover:scale-105 hover:shadow-lg"
+      className="flex min-h-[22rem] w-full flex-col gap-1 rounded border border-slate-300 bg-white shadow transition-all duration-200 hover:z-10 hover:rotate-1 hover:scale-105 hover:animate-pulse hover:shadow-lg"
     >
       <Link href={`/pokemon/${pokemon.name}`} className="flex flex-1 flex-col ">
-        <div className="w-full bg-slate-100 p-1 capitalize">
-          <strong className="bg-gradient-to-r from-slate-500 to-pink-600 bg-clip-text text-2xl text-transparent">
+        <div className="w-full bg-zinc-500 p-1 capitalize">
+          <strong className="bg-gradient-to-r from-slate-100 to-pink-300 bg-clip-text text-2xl text-transparent">
             {pokemon.name}
           </strong>
         </div>
