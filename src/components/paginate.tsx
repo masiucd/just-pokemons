@@ -22,7 +22,7 @@ function PaginationButton({
 }: PaginagtionButtonProps) {
   return (
     <button
-      className="hover:opacity-60 disabled:opacity-40 disabled:hover:opacity-40"
+      className="hover:opacity-60 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:opacity-40"
       disabled={disabled}
       onClick={() => {
         changePage();

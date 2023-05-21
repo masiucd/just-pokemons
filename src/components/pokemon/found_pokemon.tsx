@@ -1,7 +1,7 @@
 import useSwr from "swr";
 
 import {fetcher} from "@/app/lib/fetcher";
-import {EndPoints} from "@/data/endpoints/pokemon";
+import {PokemonAPI} from "@/data/PokemonAPI/pokemon";
 import {PokemonSchemaItem} from "@/types/pokemon";
 
 import {PokemonImage} from "./pokemon_image";
@@ -12,7 +12,7 @@ interface Props {
 
 function usePokemon(pokemon: string) {
   const {data, error, isLoading} = useSwr(
-    EndPoints.pokemonByName(pokemon),
+    PokemonAPI.pokemonByName(pokemon),
     fetcher,
     {
       suspense: true,

@@ -9,9 +9,10 @@ const imageLoader = ({src, width, quality}: ImageLoaderProps) =>
 interface Props {
   name: string;
   width?: number;
+  fill?: boolean;
 }
 
-export function PokemonImage({name, width = 150}: Props) {
+export function PokemonImage({name, width = 150, fill = false}: Props) {
   return (
     <Image
       loader={imageLoader}
@@ -20,6 +21,7 @@ export function PokemonImage({name, width = 150}: Props) {
       width={width}
       quality={75}
       height={100}
+      fill={fill}
     />
   );
 }

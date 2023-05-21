@@ -19,7 +19,7 @@ function Icon() {
 //     // Gets the search value from the form data
 //     const search = formData.get("search");
 //     if (search !== null && typeof search === "string") {
-//       const url = EndPoints.pokemonByName(search.toLowerCase());
+//       const url = PokemonAPI.pokemonByName(search.toLowerCase());
 //       fetch(url)
 //         .then((res) => res.json())
 //         .then((data) => {

@@ -1,5 +1,3 @@
-import React from "react";
-
 import {PageWrapper} from "@/components/page_wrapper";
 import PokemonList from "@/components/pokemon/pokemon_list";
 

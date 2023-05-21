@@ -1,4 +1,4 @@
-export const EndPoints = Object.freeze({
+export const PokemonAPI = Object.freeze({
   // Get all pokemons
   allPokemons: (limit = 9, offset = 0) =>
     `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`,
