@@ -88,18 +88,20 @@ function getLanguageValue(language: string, record: Record<string, string>) {
 }
 
 interface Props {
-  Pokemon: PokemonItem;
+  pokemon: PokemonItem;
 }
-export default function PokemonDetails({Pokemon}: Props) {
+export default function PokemonDetails({pokemon}: Props) {
   const [language, setLanguage] = useState("fr");
-  const {data, error, isLoading} = useGetSpeciesInfo(Pokemon.species.url);
+  const {data, error, isLoading} = useGetSpeciesInfo(pokemon.species.url);
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
   // Desc here
-  const x = data.flavor_text_entries.find((x) => x.language.name === language);
-  console.log("x", x);
-  console.log("data", data);
+  const flavor = data.flavor_text_entries.find(
+    (x) => x.language.name === language
+  );
+  // console.log("x", x);
+  // console.log("data", data);
   return (
     <section className="w-full sm:w-2/3">
       <Top
@@ -112,7 +114,7 @@ export default function PokemonDetails({Pokemon}: Props) {
         <div>
           <Label>{getLanguageValue(language, Description)}</Label>
           <p>
-            {x?.flavor_text ?? (
+            {flavor?.flavor_text ?? (
               <span>No description with language {language}</span>
             )}{" "}
           </p>
