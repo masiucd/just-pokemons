@@ -1,5 +1,6 @@
 "use client";
 
+import {motion} from "framer-motion";
 import Image from "next/image";
 import {type FormEvent, type ReactNode, useState} from "react";
 
@@ -31,7 +32,15 @@ export const SearchForm = (props: SearchFormProps) => {
         <label htmlFor="search">
           <span className="pl-1 text-xl">Search for a pokemon</span>
         </label>
-        <div className="flex">
+        <motion.div
+          className="flex"
+          initial={{opacity: 0.1, scale: 0.6}}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            transition: {delay: 0.02, damping: 40, stiffness: 20},
+          }}
+        >
           <input
             type="text"
             name="search"
@@ -39,13 +48,13 @@ export const SearchForm = (props: SearchFormProps) => {
             className="h-10 flex-1 rounded-l border border-slate-950 px-2 transition-all focus:outline-2 focus:outline-slate-900"
           />
           <button
-            className="flex min-w-[7rem]  basis-14 items-center justify-center gap-3 rounded-r border border-slate-950 bg-white capitalize hover:bg-slate-50 "
+            className="flex basis-28 items-center justify-center  gap-2  rounded-r border border-slate-950 bg-white capitalize hover:bg-slate-50 "
             type="submit"
           >
             <span>submit</span>
             <Icons.search size={20} />
           </button>
-        </div>
+        </motion.div>
       </FormGroup>
     </form>
   );

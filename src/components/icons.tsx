@@ -8,7 +8,7 @@ import {
   Twitter,
 } from "lucide-react";
 
-import {PokemonIcon} from "./pokemon_icon";
+import PokemonIcon from "./pokemon_icon";
 
 export type Icon = LucideIcon;
 
