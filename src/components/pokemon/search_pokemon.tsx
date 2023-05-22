@@ -2,7 +2,13 @@
 
 import {motion} from "framer-motion";
 import Image from "next/image";
-import {type FormEvent, type ReactNode, useState} from "react";
+import {
+  type Dispatch,
+  type FormEvent,
+  type ReactNode,
+  type SetStateAction,
+} from "react";
+import {experimental_useFormStatus as useFormStatus} from "react-dom";
 
 import {cn} from "@/app/lib/styles";
 import {Icons} from "@/components/icons";
@@ -23,11 +29,9 @@ interface SearchFormProps {
 }
 
 export const SearchForm = (props: SearchFormProps) => {
+  const {pending} = useFormStatus();
   return (
-    <form
-      className="flex h-full flex-1 flex-col rounded"
-      onSubmit={props.onSubmit}
-    >
+    <form className="flex  flex-1 flex-col rounded" onSubmit={props.onSubmit}>
       <FormGroup>
         <label htmlFor="search">
           <span className="pl-1 text-xl">Search for a pokemon</span>
@@ -48,8 +52,12 @@ export const SearchForm = (props: SearchFormProps) => {
             className="h-10 flex-1 rounded-l border border-slate-950 px-2 transition-all focus:outline-2 focus:outline-slate-900"
           />
           <button
-            className="flex basis-28 items-center justify-center  gap-2  rounded-r border border-slate-950 bg-white capitalize hover:bg-slate-50 "
+            className={cn(
+              "flex basis-28 items-center justify-center  gap-2  rounded-r border border-slate-950 bg-white capitalize hover:bg-slate-50",
+              pending && "cursor-not-allowed opacity-40"
+            )}
             type="submit"
+            disabled={pending}
           >
             <span>submit</span>
             <Icons.search size={20} />
@@ -60,8 +68,11 @@ export const SearchForm = (props: SearchFormProps) => {
   );
 };
 
-function SearchPokemon() {
-  const [pokemonName, setPokemonName] = useState<string | null>(null);
+interface SearchPokemonProps {
+  pokemonName: string | null;
+  setPokemonName: Dispatch<SetStateAction<string | null>>;
+}
+function SearchPokemon({pokemonName, setPokemonName}: SearchPokemonProps) {
   return (
     <div>
       <SearchForm

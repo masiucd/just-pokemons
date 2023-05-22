@@ -4,6 +4,7 @@ import {
   Command,
   Github,
   type Icon as LucideIcon,
+  List,
   Search,
   Twitter,
   XIcon,
@@ -22,6 +23,7 @@ const Icons = {
   pokemon: PokemonIcon,
   search: Search,
   x: XIcon,
+  list: List,
 };
 
 export {Icons};
