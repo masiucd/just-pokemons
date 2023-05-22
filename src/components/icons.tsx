@@ -6,6 +6,7 @@ import {
   type Icon as LucideIcon,
   Search,
   Twitter,
+  XIcon,
 } from "lucide-react";
 
 import PokemonIcon from "./pokemon_icon";
@@ -20,6 +21,7 @@ const Icons = {
   twitter: Twitter,
   pokemon: PokemonIcon,
   search: Search,
+  x: XIcon,
 };
 
 export {Icons};

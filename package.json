@@ -12,6 +12,7 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.3",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "framer-motion": "^10.12.12",
