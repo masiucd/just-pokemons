@@ -1,7 +1,9 @@
 // import {randomUUID} from "node:crypto";
 
 import {notFound} from "next/navigation";
+import {Suspense} from "react";
 
+import HeadBodyGrid from "@/components/loaders/head_body";
 import {PageWrapper} from "@/components/page_wrapper";
 import {PokemonBox} from "@/components/pokemon/pokemon_box";
 import PokemonDetails from "@/components/pokemon/pokemon_details";
@@ -41,7 +43,7 @@ async function PokemonSlugPage({params}: Props) {
 
   return (
     <PageWrapper className="max-w-6xl justify-center ">
-      <div className="flex flex-col gap-5  sm:flex-row">
+      <div className="flex flex-col gap-5 sm:flex-row">
         <PokemonBox pokemon={pokemon} />
         <PokemonDetails pokemon={pokemon} />
       </div>

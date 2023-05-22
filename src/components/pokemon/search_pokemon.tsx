@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {type FormEvent, type ReactNode, useState} from "react";
 
 import {cn} from "@/app/lib/styles";
@@ -12,11 +13,7 @@ interface Props {
   className?: string;
 }
 function FormGroup({children, className}: Props) {
-  return (
-    <div className={cn("flex flex-col border border-red-500 px-1", className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn("flex flex-col px-1", className)}>{children}</div>;
 }
 
 interface SearchFormProps {
@@ -27,19 +24,19 @@ interface SearchFormProps {
 export const SearchForm = (props: SearchFormProps) => {
   return (
     <form
-      className="flex h-full flex-1 flex-col rounded border border-slate-950"
+      className="flex h-full flex-1 flex-col rounded"
       onSubmit={props.onSubmit}
     >
       <FormGroup>
         <label htmlFor="search">
-          <span>Search for pokemon</span>
+          <span className="pl-1 text-xl">Search for a pokemon</span>
         </label>
         <div className="flex">
           <input
             type="text"
             name="search"
             id="search"
-            className="h-10 flex-1 rounded-l border border-slate-950 px-2"
+            className="h-10 flex-1 rounded-l border border-slate-950 px-2 transition-all focus:outline-2 focus:outline-slate-900"
           />
           <button
             className="flex min-w-[7rem]  basis-14 items-center justify-center gap-3 rounded-r border border-slate-950 bg-white capitalize hover:bg-slate-50 "
@@ -56,7 +53,6 @@ export const SearchForm = (props: SearchFormProps) => {
 
 function SearchPokemon() {
   const [pokemonName, setPokemonName] = useState<string | null>(null);
-
   return (
     <div>
       <SearchForm
@@ -70,7 +66,9 @@ function SearchPokemon() {
       {pokemonName !== null && typeof pokemonName === "string" ? (
         <FoundPokemon pokemonName={pokemonName} />
       ) : (
-        <p>Search for a pokemon</p>
+        <aside className="flex justify-center sm:pt-20">
+          <Image src="/poke.svg" alt="pokeball" width={200} height={200} />
+        </aside>
       )}
     </div>
   );

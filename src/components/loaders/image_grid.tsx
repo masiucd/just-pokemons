@@ -1,9 +1,9 @@
 "use client";
-import ContentLoader from "react-content-loader";
+import ContentLoader, {type IContentLoaderProps} from "react-content-loader";
 
 import {cn} from "@/app/lib/styles";
 
-interface Props {
+interface Props extends IContentLoaderProps {
   className?: string;
 }
 const ImageGrid = ({className}: Props) => (

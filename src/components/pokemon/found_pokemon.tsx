@@ -1,10 +1,10 @@
 import useSwr from "swr";
 
 import {fetcher} from "@/app/lib/fetcher";
-import {PokemonAPI} from "@/data/PokemonAPI/pokemon";
+import {PokemonAPI} from "@/lib/api/pokemon";
 import {PokemonSchemaItem} from "@/types/pokemon";
 
-import {PokemonImage} from "./pokemon_image";
+import {PokemonBox} from "./pokemon_box";
 
 interface Props {
   pokemonName: string;
@@ -19,9 +19,9 @@ function usePokemon(pokemon: string) {
       fallback: <div>...loading</div>,
     }
   );
-  const parsed = PokemonSchemaItem.parse(data);
+
   return {
-    data: parsed,
+    data: PokemonSchemaItem.parse(data),
     error,
     isLoading,
   };
@@ -31,11 +31,9 @@ const FoundPokemon = ({pokemonName}: Props) => {
   const {data, error, isLoading} = usePokemon(pokemonName);
   if (isLoading) return <div>...loading</div>;
   if (error) return <div>Error</div>;
-  console.log("data", data.name);
   return (
-    <div>
-      <PokemonImage name={data.name} />
-      <h1>{data.name}</h1>
+    <div className="sm:pt-10">
+      <PokemonBox className="sm:w-full" pokemon={data} />
     </div>
   );
 };

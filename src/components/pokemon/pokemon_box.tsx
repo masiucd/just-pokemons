@@ -3,6 +3,7 @@ import {Suspense} from "react";
 import {cn} from "@/app/lib/styles";
 import {type PokemonItem} from "@/types/pokemon";
 
+import ImageGrid from "../loaders/image_grid";
 import {PokemonImage} from "./pokemon_image";
 import {PokemonStat} from "./pokemon_stat";
 
@@ -43,8 +44,8 @@ function Top({pokemon}: TopProps) {
   return (
     <div className="relative mb-5 rounded p-2">
       <div className="mb-5">
-        <Suspense fallback={<div className="h-[338px]">Loading...</div>}>
-          <PokemonImage name={pokemon.name} width={300} />
+        <Suspense fallback={<ImageGrid />}>
+          <PokemonImage name={pokemon.name} width={300} priority />
         </Suspense>
       </div>
       <NameWeightHeight pokemon={pokemon} />

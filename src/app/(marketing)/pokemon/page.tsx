@@ -4,7 +4,7 @@ import Search from "@/components/pokemon/search_pokemon";
 function PokemonPage() {
   return (
     <PageWrapper>
-      <section className="mx-auto w-full max-w-3xl flex-1 border border-red-400 pt-20">
+      <section className="mx-auto w-full max-w-3xl flex-1 sm:pt-20">
         <Search />
       </section>
     </PageWrapper>

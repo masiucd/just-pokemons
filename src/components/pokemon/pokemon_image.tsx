@@ -10,11 +10,18 @@ interface Props {
   name: string;
   width?: number;
   fill?: boolean;
+  priority?: boolean;
 }
 
-export function PokemonImage({name, width = 150, fill = false}: Props) {
+export function PokemonImage({
+  name,
+  width = 150,
+  fill = false,
+  priority = false,
+}: Props) {
   return (
     <Image
+      priority={priority}
       loader={imageLoader}
       src={`${name}`}
       alt={`Picture of the ${name}`}
