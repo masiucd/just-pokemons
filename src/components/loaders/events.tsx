@@ -8,8 +8,8 @@ interface Props extends IContentLoaderProps {
 function EventsLoader(props: Props) {
   return (
     <ContentLoader
-      width={1700}
-      height={1300}
+      width={900}
+      height={700}
       viewBox="0 0 700 300"
       backgroundColor="#f5f5f5"
       foregroundColor="#dbdbdb"

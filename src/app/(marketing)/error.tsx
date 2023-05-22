@@ -16,13 +16,6 @@ export default function Error({
     console.error(error);
   }, [error]);
 
-  // flex-grow: 1;
-  //   display: flex;
-  //   justify-content: center;
-  //   flex-direction: column;
-  //   /* align-items: center; */
-  //   align-items: flex-start;
-
   return (
     <PageWrapper>
       <div className="flex flex-1 flex-col items-start justify-center ">
