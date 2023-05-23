@@ -31,7 +31,7 @@ interface SearchFormProps {
 export const SearchForm = (props: SearchFormProps) => {
   const {pending} = useFormStatus();
   return (
-    <form className="flex  flex-1 flex-col rounded" onSubmit={props.onSubmit}>
+    <form className="mb-5 rounded" onSubmit={props.onSubmit}>
       <FormGroup>
         <label htmlFor="search">
           <span className="pl-1 text-xl">Search for a pokemon</span>
@@ -74,7 +74,7 @@ interface SearchPokemonProps {
 }
 function SearchPokemon({pokemonName, setPokemonName}: SearchPokemonProps) {
   return (
-    <div>
+    <div className="flex flex-1 flex-col sm:mb-5">
       <SearchForm
         onSubmit={(e: FormEvent<HTMLFormElement>) => {
           e.preventDefault();
@@ -86,7 +86,7 @@ function SearchPokemon({pokemonName, setPokemonName}: SearchPokemonProps) {
       {pokemonName !== null && typeof pokemonName === "string" ? (
         <FoundPokemon pokemonName={pokemonName} />
       ) : (
-        <aside className="flex justify-center sm:pt-20">
+        <aside className="flex h-full flex-1 justify-center">
           <Image src="/poke.svg" alt="pokeball" width={200} height={200} />
         </aside>
       )}

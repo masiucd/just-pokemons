@@ -50,11 +50,7 @@ const FoundPokemon = ({pokemonName}: Props) => {
   if (isLoading) return <Loader />;
   if (error) return <Error error={error} />;
   const pokemonData = PokemonSchemaItem.parse(data);
-  return (
-    <div className="sm:pt-10">
-      <PokemonBox className="sm:w-full" pokemon={pokemonData} />
-    </div>
-  );
+  return <PokemonBox className="sm:w-full" pokemon={pokemonData} />;
 };
 
 export default FoundPokemon;

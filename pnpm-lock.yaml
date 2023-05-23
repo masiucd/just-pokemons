@@ -49,6 +49,9 @@ dependencies:
   tailwindcss-animate:
     specifier: ^1.0.5
     version: 1.0.5(tailwindcss@3.3.2)
+  tailwindcss-animated:
+    specifier: ^1.0.1
+    version: 1.0.1(tailwindcss@3.3.2)
   zod:
     specifier: ^3.21.4
     version: 3.21.4
@@ -3024,6 +3027,14 @@ packages:
     resolution: {integrity: sha512-UU3qrOJ4lFQABY+MVADmBm+0KW3xZyhMdRvejwtXqYOL7YjHYxmuREFAZdmVG5LPe5E9CAst846SLC4j5I3dcw==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      tailwindcss: 3.3.2
+    dev: false
+
+  /tailwindcss-animated@1.0.1(tailwindcss@3.3.2):
+    resolution: {integrity: sha512-u5wusj89ZwP8I+s8WZlaAd7aZTWBN/XEG6QgMKpkIKmAf3xP1A6WYf7oYIKmGaB10UAQaSqWopi/i1ozzZEs8Q==}
+    peerDependencies:
+      tailwindcss: '>=3.1.0'
     dependencies:
       tailwindcss: 3.3.2
     dev: false

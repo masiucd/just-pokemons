@@ -12,7 +12,7 @@ import Tooltip from "../tooltip";
 export function Content() {
   const [pokemonName, setPokemonName] = useState<string | null>(null);
   return (
-    <>
+    <section className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center rounded-md shadow-md">
       <Search pokemonName={pokemonName} setPokemonName={setPokemonName} />
       <div className="mb-2 mt-auto flex justify-end sm:pr-2">
         <Dialog
@@ -36,6 +36,6 @@ export function Content() {
           />
         </Dialog>
       </div>
-    </>
+    </section>
   );
 }
