@@ -1,9 +1,7 @@
 // import {randomUUID} from "node:crypto";
 
 import {notFound} from "next/navigation";
-import {Suspense} from "react";
 
-import HeadBodyGrid from "@/components/loaders/head_body";
 import {PageWrapper} from "@/components/page_wrapper";
 import {PokemonBox} from "@/components/pokemon/pokemon_box";
 import PokemonDetails from "@/components/pokemon/pokemon_details";

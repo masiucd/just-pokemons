@@ -22,7 +22,8 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const useColor = (url: string) => {
   const {data, error, isLoading} = useSwr(url, fetcher, {
     refreshInterval: 3600,
-    suspense: true,
+    // suspense: true,
+    // fallback: <div>Loading...</div>,
   });
   const colorData = ColorSchema.parse(data);
   return {

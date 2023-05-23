@@ -26,7 +26,10 @@ export const useGetSpeciesInfo = (url: string) => {
       const data = await response.json();
       return DetailsSchema.parse(data);
     },
-    {refreshInterval: 3600, suspense: true, fallback: <div>...loading</div>}
+    {
+      refreshInterval: 3600,
+      // suspense: true, fallback: <div>...loading</div>
+    }
   );
 
   return {
@@ -34,23 +37,6 @@ export const useGetSpeciesInfo = (url: string) => {
     error,
     isLoading,
   };
-  // return useQuery<SpeciesInfo>({
-  //   queryKey: ["species", url],
-  //   queryFn: async () => {
-  //     const { data } = await axios.get(url);
-  //     return data as SpeciesInfo;
-  //   },
-  //   select: (data) =>
-  //     ({
-  //       gender_rate: data.gender_rate,
-  //       capture_rate: data.capture_rate,
-  //       hatch_counter: data.hatch_counter,
-  //       egg_groups: data.egg_groups,
-  //       color: data.color,
-  //       flavor_text_entries: data.flavor_text_entries,
-  //       form_descriptions: data.form_descriptions,
-  //     } || {}),
-  // });
 };
 
 interface TopProps {
@@ -91,13 +77,13 @@ interface Props {
   pokemon: PokemonItem;
 }
 export default function PokemonDetails({pokemon}: Props) {
-  const [language, setLanguage] = useState("fr");
+  const [language, setLanguage] = useState("en");
   const {data, error, isLoading} = useGetSpeciesInfo(pokemon.species.url);
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
   // Desc here
-  const flavor = data.flavor_text_entries.find(
+  const flavor = data?.flavor_text_entries.find(
     (x) => x.language.name === language
   );
   // console.log("x", x);
@@ -121,21 +107,23 @@ export default function PokemonDetails({pokemon}: Props) {
         </div>
         <div>
           <Label>{getLanguageValue(language, Happiness)}</Label>
-          <p>{data.base_happiness}</p>
+          <p>{data?.base_happiness ?? 0}</p>
         </div>
         <div>
           <div>
             <Label>{getLanguageValue(language, CaptureRate)}</Label>
-            <p>{data.capture_rate} </p>
+            <p>{data?.capture_rate ?? 0} </p>
           </div>
         </div>
-        <Color color={data.color} language={language} />
+        {data && <Color color={data.color} language={language} />}
         <div>
           <Label>Egg groups</Label>
           <ul>
-            {data.egg_groups.map((x) => (
-              <li key={x.name}> {x.name} </li>
-            ))}
+            {data?.egg_groups.map((x) => <li key={x.name}> {x.name} </li>) ?? (
+              <li>
+                <span>No egg groups</span>
+              </li>
+            )}
           </ul>
         </div>
       </aside>

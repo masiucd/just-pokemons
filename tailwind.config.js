@@ -105,11 +105,9 @@ module.exports = {
         slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideRightAndFade:
           "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "animate-jump-in": "animate-jump-in 0.5s ease-in-out",
       },
     },
   },
-  plugins: [
-    // require("tailwindcss-animate")
-    require("tailwindcss-animated"),
-  ],
+  plugins: [require("tailwindcss-animated")],
 };
