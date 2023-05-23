@@ -5,6 +5,7 @@ import {
   Github,
   type Icon as LucideIcon,
   List,
+  PlusCircle,
   Search,
   Twitter,
   XIcon,
@@ -24,6 +25,7 @@ const Icons = {
   search: Search,
   x: XIcon,
   list: List,
+  plusCircle: PlusCircle,
 };
 
 export {Icons};
