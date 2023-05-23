@@ -33,4 +33,4 @@ Test application to learn more about NextJS and TailwindCSS, using app-dir in Ne
 
 ### Screenshots
 
-![two](./p2.png)
+![two](./ppp.png)
