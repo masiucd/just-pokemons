@@ -18,10 +18,7 @@ import {DetailsSchema, PokemonItem} from "@/types/pokemon";
 import Label from "./label";
 
 function getCaptureRate(captureRate: number) {
-  if (captureRate >= 100) {
-    return 100;
-  }
-  return captureRate;
+  return (captureRate = Math.round((captureRate / 255) * 100));
 }
 
 export const useGetSpeciesInfo = (url: string) => {
@@ -97,10 +94,12 @@ function CaptureRateValue({captureRate, language}: CaptureRateProps) {
           <div
             className={cn("absolute left-0 top-0 h-full w-3 bg-red-500 pl-1")}
             style={{
-              width: `${getCaptureRate(captureRate)}%`,
+              width: `${getCaptureRate(captureRate) - 5}%`,
             }}
           >
-            <p className="text-sm text-white">{captureRate}</p>
+            <p className="text-sm text-white">
+              {((captureRate / 255) * 100).toFixed(1)}%
+            </p>
           </div>
         </motion.div>
       </div>
