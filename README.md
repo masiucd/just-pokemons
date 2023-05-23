@@ -30,3 +30,8 @@ Test application to learn more about NextJS and TailwindCSS, using app-dir in Ne
 ## Web app url
 
 - [just pokemons](https://just-pokemons.vercel.app/)
+
+### Screenshots
+
+![one](./p1.png)
+![two](./p2.png)
