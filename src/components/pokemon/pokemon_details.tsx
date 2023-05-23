@@ -1,5 +1,6 @@
 "use client";
 
+import {motion} from "framer-motion";
 import {useState} from "react";
 import useSwr from "swr";
 
@@ -7,16 +8,21 @@ import {
   CaptureRate,
   Description,
   Details,
+  Groups,
   Happiness,
   Languages,
 } from "@/app/lib/language";
 import {cn} from "@/app/lib/styles";
 import {DetailsSchema, PokemonItem} from "@/types/pokemon";
 
-import Color from "./color";
 import Label from "./label";
 
-// type SpeciesInfo = z.infer<typeof DetailsSchema>;
+function getCaptureRate(captureRate: number) {
+  if (captureRate >= 100) {
+    return 100;
+  }
+  return captureRate;
+}
 
 export const useGetSpeciesInfo = (url: string) => {
   const {data, error, isLoading} = useSwr(
@@ -39,14 +45,79 @@ export const useGetSpeciesInfo = (url: string) => {
   };
 };
 
+function DescriptionValue({
+  flavor,
+  language,
+}: {
+  flavor?: {flavor_text: string};
+  language: string;
+}) {
+  return (
+    <div>
+      <Label>{getLanguageValue(language, Description)}</Label>
+      <p>
+        {flavor?.flavor_text ?? (
+          <span>No description with language {language}</span>
+        )}{" "}
+      </p>
+    </div>
+  );
+}
+
+function BaseHappiness({
+  language,
+  baseHappiness,
+}: {
+  language: string;
+  baseHappiness: number;
+}) {
+  return (
+    <div>
+      <Label>{getLanguageValue(language, Happiness)}</Label>
+      <p>{baseHappiness}</p>
+    </div>
+  );
+}
+
+interface CaptureRateProps {
+  captureRate: number;
+  language: string;
+}
+
+function CaptureRateValue({captureRate, language}: CaptureRateProps) {
+  return (
+    <div className="mb-5">
+      <Label>{getLanguageValue(language, CaptureRate)}</Label>
+      <div className="relative">
+        <motion.div
+          className="absolute left-0 top-0 h-5 rounded bg-slate-900/80 shadow-md"
+          initial={{width: 0}}
+          animate={{width: 200}}
+          transition={{duration: 1}}
+        >
+          <div
+            className={cn("absolute left-0 top-0 h-full w-3 bg-red-500 pl-1")}
+            style={{
+              width: `${getCaptureRate(captureRate)}%`,
+            }}
+          >
+            <p className="text-sm text-white">{captureRate}</p>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
 interface TopProps {
   language: string;
   // eslint-disable-next-line no-unused-vars
   setLanguage: (code: string) => void;
 }
+
 function Top({language, setLanguage}: TopProps) {
   return (
-    <div className="mb-5 flex items-center justify-between sm:px-1">
+    <div className="mb-5 flex flex-col items-center justify-between gap-2 px-1 sm:flex-row sm:gap-0">
       <h3 className="capitalize">{getLanguageValue(language, Details)}</h3>
       <ul className="flex flex-wrap gap-3">
         {Languages.map((x) => (
@@ -63,7 +134,6 @@ function Top({language, setLanguage}: TopProps) {
           </li>
         ))}
       </ul>
-      {/* </div> */}
     </div>
   );
 }
@@ -82,12 +152,10 @@ export default function PokemonDetails({pokemon}: Props) {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
-  // Desc here
   const flavor = data?.flavor_text_entries.find(
     (x) => x.language.name === language
   );
-  // console.log("x", x);
-  // console.log("data", data);
+
   return (
     <section className="w-full sm:w-2/3">
       <Top
@@ -97,35 +165,28 @@ export default function PokemonDetails({pokemon}: Props) {
         }}
       />
       <aside className="flex w-full flex-col justify-center sm:px-1">
-        <div>
-          <Label>{getLanguageValue(language, Description)}</Label>
-          <p>
-            {flavor?.flavor_text ?? (
-              <span>No description with language {language}</span>
-            )}{" "}
-          </p>
-        </div>
-        <div>
-          <Label>{getLanguageValue(language, Happiness)}</Label>
-          <p>{data?.base_happiness ?? 0}</p>
-        </div>
-        <div>
-          <div>
-            <Label>{getLanguageValue(language, CaptureRate)}</Label>
-            <p>{data?.capture_rate ?? 0} </p>
-          </div>
-        </div>
-        {data && <Color color={data.color} language={language} />}
-        <div>
-          <Label>Egg groups</Label>
-          <ul>
-            {data?.egg_groups.map((x) => <li key={x.name}> {x.name} </li>) ?? (
-              <li>
-                <span>No egg groups</span>
-              </li>
-            )}
-          </ul>
-        </div>
+        <DescriptionValue flavor={flavor} language={language} />
+        <BaseHappiness
+          language={language}
+          baseHappiness={data?.base_happiness ?? 0}
+        />
+        {data?.capture_rate && (
+          <CaptureRateValue
+            captureRate={data.capture_rate}
+            language={language}
+          />
+        )}
+
+        <Label>{getLanguageValue(language, Groups)}</Label>
+        <ul>
+          {data?.egg_groups.map(({name}) => {
+            return <li key={name}> {name} </li>;
+          }) ?? (
+            <li>
+              <span>No egg groups</span>
+            </li>
+          )}
+        </ul>
       </aside>
     </section>
   );

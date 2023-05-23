@@ -51,3 +51,12 @@ export const Happiness = Object.freeze({
   ja: "ベースハッピネス",
   ko: "기본 행복",
 });
+
+export const Groups = Object.freeze({
+  en: "groups",
+  es: "grupos",
+  fr: "groupes",
+  de: "Gruppen",
+  ja: "グループ",
+  ko: "그룹",
+});
