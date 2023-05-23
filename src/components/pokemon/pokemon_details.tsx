@@ -34,7 +34,6 @@ export const useGetSpeciesInfo = (url: string) => {
     },
     {
       refreshInterval: 3600,
-      // suspense: true, fallback: <div>...loading</div>
     }
   );
 
